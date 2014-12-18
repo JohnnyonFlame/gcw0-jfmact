@@ -44,10 +44,10 @@ extern "C" {
 //
 //****************************************************************************
 
-#define BUTTON0_SCAN_1   sc_Space
-#define BUTTON0_SCAN_2   sc_Enter
-#define BUTTON0_SCAN_3   sc_kpad_Enter
-#define BUTTON1_SCAN     sc_Escape
+#define BUTTON0_SCAN_1   sc_LeftControl
+#define BUTTON0_SCAN_2   sc_LeftControl
+#define BUTTON0_SCAN_3   sc_LeftControl
+#define BUTTON1_SCAN     sc_LeftAlt
 
 #define AXISUNDEFINED   0x7f
 #define BUTTONUNDEFINED 0x7f
