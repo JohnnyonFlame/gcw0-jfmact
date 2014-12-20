@@ -155,7 +155,7 @@ void CONTROL_GetJoyDelta( void )
         // to yield 0-32767
         delta = (((delta * delta) / 32767) * delta) / 32767;
         
-		CONTROL_JoyAxes[i].analog = delta * sign;
+		CONTROL_JoyAxes[i].analog = (delta >> 2) * sign;
     }
 }
 
