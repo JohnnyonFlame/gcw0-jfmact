@@ -45,6 +45,7 @@ static controlaxistype    CONTROL_LastMouseAxes[MAXMOUSEAXES];
 static controlaxistype    CONTROL_LastJoyAxes[MAXJOYAXES];
 static int32   CONTROL_MouseAxesScale[MAXMOUSEAXES];
 static int32   CONTROL_JoyAxesScale[MAXJOYAXES];
+static int32   CONTROL_JoyAxesReverse[MAXJOYAXES];
 static int32   CONTROL_JoyAxesDead[MAXJOYAXES];
 static int32   CONTROL_JoyAxesSaturate[MAXJOYAXES];
 static int32   CONTROL_MouseButtonState[MAXMOUSEBUTTONS];
@@ -384,6 +385,11 @@ void CONTROL_MapAnalogAxis( int32 whichaxis, int32 whichanalog, controldevice de
 	set[whichaxis].analogmap = whichanalog;
 }
 
+void CONTROL_SetJoyAxesReverse( int32 whichaxis, int32 isreverse )
+{
+	CONTROL_JoyAxesReverse[whichaxis] = isreverse;
+}
+
 void CONTROL_SetAnalogAxisScale( int32 whichaxis, int32 axisscale, controldevice device )
 {
 	int32 *set;
@@ -487,6 +493,7 @@ void CONTROL_ClearAssignments( void )
 	for (i=0;i<MAXMOUSEAXES;i++)
 		CONTROL_MouseAxesScale[i] = NORMALAXISSCALE;
 	for (i=0;i<MAXJOYAXES;i++) {
+		CONTROL_JoyAxesReverse[i] = 0;
 		CONTROL_JoyAxesScale[i] = NORMALAXISSCALE;
         CONTROL_JoyAxesDead[i] = 0;
         CONTROL_JoyAxesSaturate[i] = 32767;
@@ -644,6 +651,9 @@ void CONTROL_ScaleAxis(int32 axis, controldevice device)
 	}
 
     set[axis].analog = mulscale16(set[axis].analog, scale[axis]);
+
+    if (device == controldevice_joystick)
+    	set[axis].analog *= (CONTROL_JoyAxesReverse[axis]) ? -1 : 1;
 }
 
 void CONTROL_ApplyAxis(int32 axis, ControlInfo *info, controldevice device)

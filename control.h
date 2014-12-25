@@ -211,6 +211,11 @@ void CONTROL_MapDigitalAxis
    int32 direction,
    controldevice device
    );
+void CONTROL_SetJoyAxesReverse
+   (
+   int32 whichaxis,
+   int32 isreverse
+   );
 void CONTROL_SetAnalogAxisScale
    (
    int32 whichaxis,
